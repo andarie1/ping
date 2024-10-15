@@ -20,4 +20,11 @@ ping_result="$(ping -c 1 $target | awk -F 'time=' '/time=/ {print $2}' | cut -d'
             failed_count=0
         fi
     fi
+    if [ $fail_count -ge 3 ]; then
+        echo "Пинг не удается 3 раза подряд"
+        exit 1
+    fi
+
+    sleep 1
+done
 
