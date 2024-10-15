@@ -6,8 +6,6 @@ read -p "Введите IP адрес или доменное имя для пи
 # Переменные для подсчета неудачных пингов
 failed_count=0
 
-while true; do
-ping_result="$(ping -c 1 $target | awk -F 'time=' '/time=/ {print $2}' | cut -d' ')"
  if [ -z "$ping_result" ]; then
         # Если пинг не прошел
         echo "Пинг неудачен"
@@ -18,8 +16,10 @@ ping_result="$(ping -c 1 $target | awk -F 'time=' '/time=/ {print $2}' | cut -d'
         else
             echo "Пинг успешен: $ping_result мс"
             failed_count=0
+        
         fi
     fi
+
     if [ $fail_count -ge 3 ]; then
         echo "Пинг не удается 3 раза подряд"
         exit 1
@@ -27,4 +27,3 @@ ping_result="$(ping -c 1 $target | awk -F 'time=' '/time=/ {print $2}' | cut -d'
 
     sleep 1
 done
-
